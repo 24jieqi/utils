@@ -67,4 +67,33 @@ declare function mul(...params: number[]): number | undefined;
  */
 declare function div(...params: number[]): number | undefined;
 
-export { div, ensurePrefix, ensureSuffix, execute, mul, plus, randomStr, slash, sub, template };
+/**
+ * 向上取小数位
+ * @param num 数字
+ * @param fractionDigits 小数位（默认为0）
+ * @returns
+ */
+declare function ceilWith(num: number, fractionDigits?: number): number | undefined;
+/**
+ * 向下取（最多）小数位
+ * @param num
+ * @param fractionDigits 小数位（默认为0）
+ * @returns
+ */
+declare function floorWith(num: number, fractionDigits?: number): number | undefined;
+/**
+ * 四舍五入取（最多）小数位
+ * @param num 待舍入的数字
+ * @param fractionDigits 小数位（默认为0）
+ * @returns
+ */
+declare function roundWith(num: number, fractionDigits?: number): number | undefined;
+/**
+ * 数字千分位格式化
+ * @param val 待格式化的数字
+ * @param limitDecimals 小数位，传入后将使用四舍五入
+ * @returns
+ */
+declare function toDecimalMark(val: number, limitDecimals?: number): string | undefined;
+
+export { ceilWith, div, ensurePrefix, ensureSuffix, execute, floorWith, mul, plus, randomStr, roundWith, slash, sub, template, toDecimalMark };
