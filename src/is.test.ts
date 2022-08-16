@@ -9,6 +9,7 @@ import {
   isPromise,
   isMobile,
   isLicensePlateNumber,
+  isNullish,
 } from './is'
 
 describe('is', () => {
@@ -32,6 +33,9 @@ describe('is', () => {
     func.then = () => {}
     func.catch = () => {}
     expect(isPromise(func)).toEqual(true)
+    expect(isNullish('')).toEqual(true)
+    expect(isNullish(null)).toEqual(true)
+    expect(isNullish(undefined)).toEqual(true)
   })
   it('isMobile', () => {
     expect(isMobile('13212345678')).toEqual(true)
@@ -39,6 +43,7 @@ describe('is', () => {
     expect(isMobile('861321234567')).toEqual(false)
   })
   it('isLicensePlateNumber', () => {
+    expect(isLicensePlateNumber('')).toEqual(false)
     expect(isLicensePlateNumber('渝A50A52')).toEqual(true)
     expect(isMobile('渝A 50A52')).toEqual(false)
     expect(isMobile('渝A5OA52')).toEqual(false)

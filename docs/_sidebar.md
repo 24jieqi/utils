@@ -1,0 +1,3 @@
+- API
+  - [Decimal](api/decimal.md)
+  - [Format](api/format.md)

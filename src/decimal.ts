@@ -50,6 +50,11 @@ export function plus(...params: number[]) {
 }
 
 /**
+ * 数值计算加（同plus）
+ */
+export const add = plus
+
+/**
  * 数值计算减
  * @param params
  * @returns
@@ -66,6 +71,11 @@ export function sub(...params: number[]) {
 }
 
 /**
+ * 数值计算减（同sub）
+ */
+export const minus = sub
+
+/**
  * 数值计算乘
  * @param params
  * @returns
@@ -80,6 +90,11 @@ export function mul(...params: number[]) {
   })
   return result.toNumber()
 }
+
+/**
+ * 数值计算乘（同mul）
+ */
+export const times = mul
 
 /**
  * 数值计算除
