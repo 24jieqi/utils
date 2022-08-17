@@ -1,3 +1,6 @@
 - API
   - [Decimal](api/decimal.md)
   - [Format](api/format.md)
+  - [Is](api/is.md)
+  - [String](api/string.md)
+  - [Types](api/types.md)

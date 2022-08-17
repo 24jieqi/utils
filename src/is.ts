@@ -1,5 +1,5 @@
 /**
- * 是否是某种类型（包装函数）
+ * 是否是某种类型
  * @param t
  * @returns
  */
@@ -12,7 +12,10 @@ export const isType =
       | 'String'
       | 'Number'
       | 'Null'
-      | 'Undefined',
+      | 'Undefined'
+      | 'Map'
+      | 'Set'
+      | 'RegExp',
   ) =>
   (v: any) =>
     Object.prototype.toString.call(v) === `[object ${t}]`

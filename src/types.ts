@@ -13,4 +13,5 @@ export type Arrayable<T> = T | Array<T>
 /**
  * function return the given type
  */
-export type Fn<T = undefined> = () => T
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+export type Fn<T = void> = () => T
