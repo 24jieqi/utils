@@ -4,7 +4,7 @@
 
 ## isDef
 
-> 是否已定义 _是否等于`null`或者`undefined`_
+> 是否已定义 _是否等于 `null`或者 `undefined`_
 
 ```ts
 import { isDef } from '@fruits-chain/utils'
@@ -57,7 +57,7 @@ console.log(isFunction(c)) // true
 
 ## isPromise
 
-> 是否是`Promise`，鸭子类型判断
+> 是否是 `Promise`，鸭子类型判断
 
 ```ts
 import { isPromise } from '@fruits-chain/utils'
@@ -84,14 +84,14 @@ console.log(isMobile('861321234567')) // false
 
 ## isNullish
 
-> 空判断（相比`isDef`而言，多了对空字符串的`false`判断）
+> 空判断（相比 `isDef`而言，多了对空字符串的 `false`判断）
 
 ```ts
 import { isMobile } from '@fruits-chain/utils'
 
 console.log(isNullish('')) // true
-console.log(isMobile(null)) // true
-console.log(isMobile(' ')) // false
+console.log(isNullish(null)) // true
+console.log(isNullish(' ')) // false
 ```
 
 ## isLicensePlateNumber

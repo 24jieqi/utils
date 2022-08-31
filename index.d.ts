@@ -49,17 +49,29 @@ declare function execute(expression: string): number | undefined;
  */
 declare function plus(...params: number[]): number | undefined;
 /**
+ * 数值计算加（同plus）
+ */
+declare const add: typeof plus;
+/**
  * 数值计算减
  * @param params
  * @returns
  */
 declare function sub(...params: number[]): number | undefined;
 /**
+ * 数值计算减（同sub）
+ */
+declare const minus: typeof sub;
+/**
  * 数值计算乘
  * @param params
  * @returns
  */
 declare function mul(...params: number[]): number | undefined;
+/**
+ * 数值计算乘（同mul）
+ */
+declare const times: typeof mul;
 /**
  * 数值计算除
  * @param params
@@ -96,4 +108,59 @@ declare function roundWith(num: number, fractionDigits?: number): number | undef
  */
 declare function toDecimalMark(val: number, limitDecimals?: number): string | undefined;
 
-export { ceilWith, div, ensurePrefix, ensureSuffix, execute, floorWith, mul, plus, randomStr, roundWith, slash, sub, template, toDecimalMark };
+/**
+ * 是否是某种类型
+ * @param t
+ * @returns
+ */
+declare const isType: (t: 'Array' | 'Object' | 'Function' | 'String' | 'Number' | 'Null' | 'Undefined' | 'Map' | 'Set' | 'RegExp') => (v: any) => boolean;
+/**
+ * 判断是否定义(null、undefined会被识别为未定义)
+ * @param val
+ * @returns
+ */
+declare function isDef<T>(val: T): val is NonNullable<T>;
+/**
+ * 是否是数组（基于isType的实现）
+ * @param v
+ * @returns
+ */
+declare const isArray: <T>(v: T[]) => v is T[];
+/**
+ * 是否是对象（基于isType的实现）
+ * @param v
+ * @returns
+ */
+declare const isObject: <T>(v: T) => v is T;
+/**
+ * 是否是函数（基于isType的实现）
+ * @param v
+ * @returns
+ */
+declare const isFunction: (v: any) => v is Function;
+/**
+ * 是否是Promise（鸭子类型判断）
+ * @param val
+ * @returns
+ */
+declare const isPromise: <T = any>(val: any) => val is Promise<T>;
+/**
+ * 判断是否是手机号码（部分国家和地区）
+ * @param value
+ * @returns
+ */
+declare function isMobile(value: string): boolean;
+/**
+ * 空判断（相比isDef而言多了对空字符串的判断）
+ * @param value
+ * @returns
+ */
+declare function isNullish(value: any): boolean;
+/**
+ * 车牌号校验（仅支持中国）
+ * @param value
+ * @returns
+ */
+declare function isLicensePlateNumber(value: string): boolean;
+
+export { add, ceilWith, div, ensurePrefix, ensureSuffix, execute, floorWith, isArray, isDef, isFunction, isLicensePlateNumber, isMobile, isNullish, isObject, isPromise, isType, minus, mul, plus, randomStr, roundWith, slash, sub, template, times, toDecimalMark };
