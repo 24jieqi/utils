@@ -31,4 +31,8 @@ it('format', () => {
   expect(abbrNumberFormat(12312331.33123, 2, false).toString()).toEqual(
     '1231.23万',
   )
+  expect(abbrNumberFormat(12312331.33123, 2, false).valueOf!()).toEqual(
+    '1231.23万',
+  )
+  expect(abbrNumberFormat('', 2, false).toString()).toEqual('')
 })
