@@ -107,6 +107,24 @@ declare function roundWith(num: number, fractionDigits?: number): number | undef
  * @returns
  */
 declare function toDecimalMark(val: number, limitDecimals?: number): string | undefined;
+/**
+ * 数字缩写
+ * @param val 待格式化的数字
+ * @param limitDecimals 小数位，传入后将使用四舍五入
+ * @param useGrouping 是否使用千分位格式化
+ * @returns 格式化的数字
+ */
+declare const abbrNumberFormat: (val: number | string, maximumFractionDigits?: number, useGrouping?: boolean) => {
+    num: number;
+    abbrStr: string;
+    toString: () => string;
+    valueOf?: undefined;
+} | {
+    num: string | number | undefined;
+    abbrStr: string;
+    valueOf: () => string;
+    toString: () => string;
+};
 
 /**
  * 是否是某种类型
@@ -163,4 +181,4 @@ declare function isNullish(value: any): boolean;
  */
 declare function isLicensePlateNumber(value: string): boolean;
 
-export { add, ceilWith, div, ensurePrefix, ensureSuffix, execute, floorWith, isArray, isDef, isFunction, isLicensePlateNumber, isMobile, isNullish, isObject, isPromise, isType, minus, mul, plus, randomStr, roundWith, slash, sub, template, times, toDecimalMark };
+export { abbrNumberFormat, add, ceilWith, div, ensurePrefix, ensureSuffix, execute, floorWith, isArray, isDef, isFunction, isLicensePlateNumber, isMobile, isNullish, isObject, isPromise, isType, minus, mul, plus, randomStr, roundWith, slash, sub, template, times, toDecimalMark };
