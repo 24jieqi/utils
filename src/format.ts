@@ -90,3 +90,51 @@ export function toDecimalMark(val: number, limitDecimals?: number) {
   })
   return r + (fraction ? '.' + fraction : '')
 }
+
+/**
+ * 数字缩写
+ * @param val 待格式化的数字
+ * @param limitDecimals 小数位，传入后将使用四舍五入
+ * @param useGrouping 是否使用千分位格式化
+ * @returns 格式化的数字
+ */
+export const abbrNumberFormat = (
+  val: number | string,
+  maximumFractionDigits = 2,
+  useGrouping = true,
+) => {
+  if (!val) {
+    return {
+      num: 0,
+      abbrStr: '',
+      toString: () => {
+        return ''
+      },
+    }
+  }
+  let resNumber: number = typeof val !== 'number' ? Number(val) : val
+  let abbr = ''
+
+  if (resNumber > 100000000) {
+    resNumber = resNumber / 100000000
+    abbr = '亿'
+  } else {
+    if (resNumber > 10000) {
+      resNumber = resNumber / 10000
+      abbr = '万'
+    }
+  }
+  const num = useGrouping
+    ? toDecimalMark(resNumber, maximumFractionDigits)
+    : roundWith(resNumber, maximumFractionDigits)
+  return {
+    num,
+    abbrStr: abbr,
+    valueOf: function () {
+      return this.num + this.abbrStr
+    },
+    toString: function () {
+      return this.num + this.abbrStr
+    },
+  }
+}

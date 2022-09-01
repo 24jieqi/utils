@@ -46,3 +46,18 @@ import { floorWith } from '@fruits-chain/utils'
 floorWith(1.2048, 2) // 1.2
 floorWith(1.29999, 2) // 1.29
 ```
+
+## abbrNumberFormat
+
+> 数字缩写
+
+```ts
+import { abbrNumberFormat } from '@fruits-chain/utils'
+
+abbrNumberFormat(12312331.33123, 2) // 1,231.23万
+abbrNumberFormat(12312331.33123, 2).num // 1,231.23
+abbrNumberFormat(12312331.33123, 2).abbrStr // 万
+abbrNumberFormat(12111312331.33123, 2).abbrStr // 亿
+abbrNumberFormat(12111312331.33123, 2) // 121.11亿
+abbrNumberFormat(12312331.33123, 2, false) // 1231.23万
+```
