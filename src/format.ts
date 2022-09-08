@@ -1,3 +1,5 @@
+import { add, div, mul, sub } from './decimal'
+
 /**
  * 错误边界判定（最多4位小数支持）
  * @param left
@@ -5,7 +7,7 @@
  * @returns
  */
 function withinErrorMargin(left: number, right: number) {
-  return Math.abs(left - right) < Math.pow(0.1, 5) // 最多4位小数支持
+  return Math.abs(sub(left, right)!) < Math.pow(0.1, 5) // 最多4位小数支持
 }
 
 function isDef(one: any) {
@@ -33,7 +35,7 @@ export function ceilWith(num: number, fractionDigits = 0) {
     for (let i = 0; i < fractionDigits; i++) {
       temp = temp * 0.1
     }
-    return Number((num + temp).toFixed(fractionDigits))
+    return Number(add(num, temp)!.toFixed(fractionDigits))
   }
 }
 
@@ -48,7 +50,7 @@ export function floorWith(num: number, fractionDigits = 0) {
     return
   }
   const m = Math.pow(10, fractionDigits)
-  return Math.floor(num * m) / m
+  return div(Math.floor(mul(num, m)!), m)
 }
 
 /**
@@ -62,7 +64,7 @@ export function roundWith(num: number, fractionDigits = 0) {
     return
   }
   const m = Math.pow(10, fractionDigits)
-  return Math.round(num * m) / m
+  return div(Math.round(mul(num, m)!), m)
 }
 
 /**
