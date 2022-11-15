@@ -77,8 +77,12 @@ export function toDecimalMark(val: number, limitDecimals?: number) {
   if (!isDef(val)) {
     return
   }
-  const temp =
-    typeof limitDecimals !== 'undefined' ? roundWith(val, limitDecimals) : val
+  let temp =
+    typeof limitDecimals !== 'undefined' ? roundWith(val, limitDecimals)! : val
+  const isNegative = temp < 0
+  if (isNegative) {
+    temp = Math.abs(temp)
+  }
   const arr = String(temp).split('.')
   const int = arr[0].split('')
   const fraction = arr[1] || ''
@@ -90,7 +94,7 @@ export function toDecimalMark(val: number, limitDecimals?: number) {
       r = v + r
     }
   })
-  return r + (fraction ? '.' + fraction : '')
+  return (isNegative ? '-' : '') + r + (fraction ? '.' + fraction : '')
 }
 
 /**

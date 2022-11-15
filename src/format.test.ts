@@ -26,6 +26,8 @@ it('format', () => {
   expect(toDecimalMark(17479.925)).toEqual('17,479.925')
   expect(toDecimalMark(17479.925, 2)).toEqual('17,479.93')
   expect(toDecimalMark(17479)).toEqual('17,479')
+  expect(toDecimalMark(-920.35)).toEqual('-920.35')
+  expect(toDecimalMark(-1920)).toEqual('-1,920')
   expect(abbrNumberFormat(12312331.33123, 2).toString()).toEqual('1,231.23万')
   expect(abbrNumberFormat(12111312331.33123, 2).toString()).toEqual('121.11亿')
   expect(abbrNumberFormat(12312331.33123, 2, false).toString()).toEqual(
