@@ -1,6 +1,6 @@
 {
   "name": "@fruits-chain/utils",
-  "version": "1.0.0-beta.7",
+  "version": "1.0.0-beta.8",
   "packageManager": "pnpm@7.0.1",
   "description": "前端工具集",
   "keywords": [
