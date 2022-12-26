@@ -121,12 +121,12 @@ export const abbrNumberFormat = (
   let resNumber: number = typeof val !== 'number' ? Number(val) : val
   let abbr = ''
 
-  if (resNumber > 100000000) {
-    resNumber = resNumber / 100000000
+  if (Math.abs(resNumber) > 100000000) {
+    resNumber = div(resNumber, 100000000) || 0
     abbr = '亿'
   } else {
-    if (resNumber > 10000) {
-      resNumber = resNumber / 10000
+    if (Math.abs(resNumber) > 10000) {
+      resNumber = div(resNumber, 10000) || 0
       abbr = '万'
     }
   }
