@@ -4,7 +4,7 @@
 
 ## execute
 
-> 传入一个计算表达式字符串，进行一次精度计算*谨慎使用*
+> 传入一个计算表达式字符串，进行一次精度计算（只支持加减乘除四则运算）_谨慎使用_
 
 ```ts
 import { execute } from '@fruits-chain/utils'

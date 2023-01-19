@@ -19,7 +19,7 @@ function recursion(ast: FormulaNode): Decimal {
 }
 
 /**
- * 传入数值计算表达式，计算精确的结果
+ * 传入数值计算表达式，计算精确的结果（只支持加减乘除四则运算）
  * @param expression
  * @returns
  */
