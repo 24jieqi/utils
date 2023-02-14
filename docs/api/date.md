@@ -44,6 +44,7 @@ formatRangeDate([targetDate, targetTimestamp], {
 ```ts
 const targetRangeDate = getRangeDate(3, 'days')
 const targetRangeDate1 = getRangeDate(3, 'months')
-const targetRangeDate2 = getRangeDate(3, 'days', new Date('2022-12-21'))
-const targetRangeDate2 = getRangeDate(-3, 'days', new Date('2022-12-21'))
+const targetRangeDate2 = getRangeDate(3, 'days', 'day', new Date('2022-12-21'))
+const targetRangeDate3 = getRangeDate(-3, 'days', 'day', new Date('2022-12-21'))
+const targetRangeDate4 = getRangeDate(1, 'month', 'day', new Date('2022-12-21'))
 ```

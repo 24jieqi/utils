@@ -100,11 +100,14 @@ export function formatRangeDate(
  * 获取时间段日期
  * @param range 时间段偏移（负数为基准日期向前偏移）
  * @param unit 偏移日期类型
+ * @param reviseUnit 修正日期类型（及按怎样的日期类型展示） 默认为unit
  * @param base 基准日期 默认为 dayjs()
  */
+// eslint-disable-next-line max-params
 export function getRangeDate(
   range: number,
   unit: dayjs.ManipulateType,
+  reviseUnit: dayjs.ManipulateType = unit,
   base: TimestampOrDate | dayjs.Dayjs = dayjs(),
 ): [Date, Date] {
   const baseDayjs = dayjs(base)
@@ -114,18 +117,20 @@ export function getRangeDate(
   }
   if (range > 0) {
     return [
-      baseDayjs.startOf(unit).toDate(),
+      baseDayjs.startOf(reviseUnit).toDate(),
       baseDayjs
-        .add(range - 1, unit)
-        .endOf(unit)
+        .add(range, unit)
+        .subtract(1, reviseUnit)
+        .endOf(reviseUnit)
         .toDate(),
     ]
   }
   return [
     baseDayjs
-      .subtract(Math.abs(range) - 1, unit)
-      .startOf(unit)
+      .subtract(Math.abs(range), unit)
+      .add(1, reviseUnit)
+      .startOf(reviseUnit)
       .toDate(),
-    baseDayjs.endOf(unit).toDate(),
+    baseDayjs.endOf(reviseUnit).toDate(),
   ]
 }

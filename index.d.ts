@@ -651,8 +651,9 @@ declare function formatRangeDate(rangeDateList: [RangeDate, RangeDate], option?:
  * 获取时间段日期
  * @param range 时间段偏移（负数为基准日期向前偏移）
  * @param unit 偏移日期类型
+ * @param reviseUnit 修正日期类型（及按怎样的日期类型展示） 默认为unit
  * @param base 基准日期 默认为 dayjs()
  */
-declare function getRangeDate(range: number, unit: dayjs.ManipulateType, base?: TimestampOrDate | dayjs.Dayjs): [Date, Date];
+declare function getRangeDate(range: number, unit: dayjs.ManipulateType, reviseUnit?: dayjs.ManipulateType, base?: TimestampOrDate | dayjs.Dayjs): [Date, Date];
 
 export { abbrNumberFormat, add, ceilWith, div, ensurePrefix, ensureSuffix, execute, floorWith, formatDate, formatRangeDate, getRangeDate, isArray, isDef, isFunction, isLicensePlateNumber, isMobile, isNullish, isObject, isPromise, isType, minus, mul, plus, randomStr, roundWith, slash, sub, template, times, toDecimalMark };

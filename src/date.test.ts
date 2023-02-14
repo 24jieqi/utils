@@ -52,19 +52,27 @@ describe('Date', () => {
     ).toBe('2023-02-14 To 2023-02-18')
   })
   it('should getRangeDate correct', () => {
+    expect(getRangeDate(3, 'minutes')).toEqual([
+      dayjs().startOf('minute').toDate(),
+      dayjs().add(2, 'minutes').endOf('minute').toDate(),
+    ])
+    expect(getRangeDate(5, 'month', 'day')).toEqual([
+      dayjs().startOf('day').toDate(),
+      dayjs().add(5, 'month').subtract(1, 'day').endOf('day').toDate(),
+    ])
     expect(getRangeDate(3, 'days')).toEqual([
       dayjs().startOf('day').toDate(),
       dayjs().add(2, 'days').endOf('day').toDate(),
     ])
-    expect(getRangeDate(0, 'days', new Date('2022-02-14'))).toEqual([
+    expect(getRangeDate(0, 'days', 'day', new Date('2022-02-14'))).toEqual([
       new Date('2022-02-14'),
       new Date('2022-02-14'),
     ])
-    expect(getRangeDate(2, 'days', new Date('2022-02-14'))).toEqual([
+    expect(getRangeDate(2, 'days', 'day', new Date('2022-02-14'))).toEqual([
       dayjs('2022-02-14').startOf('day').toDate(),
       dayjs('2022-02-15').endOf('day').toDate(),
     ])
-    expect(getRangeDate(-2, 'days', new Date('2022-02-14'))).toEqual([
+    expect(getRangeDate(-2, 'days', 'day', new Date('2022-02-14'))).toEqual([
       dayjs('2022-02-13').startOf('day').toDate(),
       dayjs('2022-02-14').endOf('day').toDate(),
     ])
