@@ -18,7 +18,7 @@ describe('Format', () => {
   })
   it('floorWith function correct', () => {
     expect(floorWith(1.2048, 2)).toEqual(1.2)
-    expect(floorWith(1.2048, 0)).toEqual(1.2)
+    expect(floorWith(1.2048, 0)).toEqual(1)
     expect(floorWith(1.29999, 2)).toEqual(1.29)
     expect(floorWith(-1.29999, 2)).toEqual(-1.3)
   })

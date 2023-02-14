@@ -4,4 +4,5 @@
   - [Is](api/is.md)
   - [String](api/string.md)
   - [Types](api/types.md)
+  - [Date](api/date.md)
 - [Contributing](api/contributing.md)

@@ -27,7 +27,7 @@ describe('Decimal', () => {
   })
   it('div function correct', () => {
     expect(div(10, 2)).toEqual(5)
-    expect(div(10)).toEqual(5)
+    expect(div(10)).toEqual(10)
     expect(div()).toBeUndefined()
   })
   it('execute function correct', () => {
