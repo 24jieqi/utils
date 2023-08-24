@@ -3,6 +3,7 @@ import dayjs from 'dayjs'
 import { isDef } from './is'
 
 type FormatMode = 'date' | 'time' | 'date-time'
+type FormatRule = 'no-current-year'
 type TimestampOrDate = number | Date
 
 interface FormatDateOptions {
@@ -14,6 +15,29 @@ interface FormatDateOptions {
    * 自定义格式化模版
    */
   template?: string
+  /**
+   * 预定义规则
+   */
+  rule?: FormatRule | RuleFunc
+}
+
+type RuleFunc = (date: TimestampOrDate, template: string) => string
+
+/**
+ * 模版规则（如果当前日期等于今年 删除年份展示）
+ * @param date
+ * @param template
+ */
+function noCurrentYearRule(date: TimestampOrDate, template: string) {
+  const isSameYear = dayjs(date).isSame(dayjs(), 'year')
+  if (!isSameYear) {
+    return template
+  }
+  return template.replace(/^YYYY-/, '')
+}
+
+const ruleMap: { [key in FormatRule]: RuleFunc } = {
+  'no-current-year': noCurrentYearRule,
 }
 
 const formatModeTemplateMap: {
@@ -37,12 +61,16 @@ export function formatDate(
   if (!isDef(time)) {
     return ''
   }
-  const { template, mode }: FormatDateOptions = {
+  const { template, mode, rule }: FormatDateOptions = {
     mode: 'date',
     template: '',
     ...option,
   }
-  const currentTemplate = template || formatModeTemplateMap[mode!]
+  let currentTemplate = template || formatModeTemplateMap[mode!]
+  const ruleFunc = typeof rule === 'string' ? ruleMap[rule] : rule
+  if (ruleFunc) {
+    currentTemplate = ruleFunc(time, currentTemplate)
+  }
   return dayjs(time).format(currentTemplate)
 }
 

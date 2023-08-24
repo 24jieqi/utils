@@ -11,12 +11,26 @@ import { formatDate } from '@fruits-chain/utils'
 
 const targetDate = new Date('2023-02-14')
 const targetTimestamp = new Date('2023-02-14').valueOf()
+const currentYear = new Date().getFullYear()
+const currentDate = new Date(`${currentYear}-02-18 13:21:55`)
 formatDate(targetDate) // 2023-02-14
 formatDate(targetTimestamp) // 2023-02-14
 formatDate(targetDate, { mode: 'date-time' }) // '2023-02-14 08:00'
 formatDate(targetDate, { template: 'YYYY-MM' }) // 2023-02
 formatDate(targetDate, { mode: 'date-time', template: 'YYYY-MM' }) // 2023-02
 formatDate(targetDate, {}) // 2023-02-14
+formatDate(currentDate, { rule: 'no-current-year' }) // 02-28
+formatDate(currentDate, { mode: 'date', rule: 'no-current-year' }) // 02-28
+formatDate(currentDate, {
+  template: 'YYYY/MM/DD HH:mm',
+  rule: (date, template) => {
+    const isSameYear = dayjs(date).isSame(dayjs(), 'year')
+    if (isSameYear) {
+      return template.replace(/^YYYY\//, '')
+    }
+    return template
+  },
+}) //
 ```
 
 ## formatRangeDate

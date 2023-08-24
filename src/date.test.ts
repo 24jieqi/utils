@@ -18,6 +18,24 @@ describe('Date', () => {
       formatDate(targetDate, { mode: 'date-time', template: 'YYYY' }),
     ).toBe('2023')
     expect(formatDate(targetDate, {})).toBe('2023-02-14')
+    const currentYear = new Date().getFullYear()
+    const currentDate = new Date(`${currentYear}-02-18 13:21:55`)
+    expect(formatDate(currentDate, { rule: 'no-current-year' })).toBe('02-18')
+    expect(
+      formatDate(currentDate, { mode: 'date', rule: 'no-current-year' }),
+    ).toBe(`02-18`)
+    expect(
+      formatDate(currentDate, {
+        template: 'YYYY/MM/DD HH:mm',
+        rule: (date, template) => {
+          const isSameYear = dayjs(date).isSame(dayjs(), 'year')
+          if (isSameYear) {
+            return template.replace(/^YYYY\//, '')
+          }
+          return template
+        },
+      }),
+    ).toBe(`02/18 13:21`)
   })
   it('should formatRangeDate correct', () => {
     const targetDate = new Date('2023-02-14')
