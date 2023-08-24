@@ -609,6 +609,7 @@ declare namespace dayjs {
 }
 
 declare type FormatMode = 'date' | 'time' | 'date-time';
+declare type FormatRule = 'no-current-year';
 declare type TimestampOrDate = number | Date;
 interface FormatDateOptions {
     /**
@@ -619,7 +620,12 @@ interface FormatDateOptions {
      * 自定义格式化模版
      */
     template?: string;
+    /**
+     * 预定义规则
+     */
+    rule?: FormatRule | RuleFunc;
 }
+declare type RuleFunc = (date: TimestampOrDate, template: string) => string;
 /**
  * 时间日期格式化
  * @param time Date类型对象或者时间戳
