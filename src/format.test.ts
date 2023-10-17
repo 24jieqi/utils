@@ -6,6 +6,7 @@ import {
   roundWith,
   toDecimalMark,
   abbrNumberFormat,
+  formatStorageSize,
 } from './format'
 
 describe('Format', () => {
@@ -49,5 +50,31 @@ describe('Format', () => {
       '1231.23万',
     )
     expect(abbrNumberFormat('', 2, false).toString()).toEqual('')
+  })
+  it('formatStorageSize function correct', () => {
+    expect(formatStorageSize(-10)).toBeUndefined()
+    expect(formatStorageSize(NaN)).toBeUndefined()
+    expect(formatStorageSize(1000)).toBe('1kB')
+    expect(formatStorageSize(1024, { iec: true })).toBe('1KiB')
+    expect(formatStorageSize(450)).toBe('450B')
+    expect(formatStorageSize(1000, { iec: true })).toBe('1000B')
+    expect(formatStorageSize(1024 ** 2)).toBe('1.049MB')
+    expect(formatStorageSize(1024 ** 2, { iec: true })).toBe('1MiB')
+    expect(formatStorageSize(1024, { from: 'MB' })).toBe('1.024GB')
+    expect(formatStorageSize(1024, { from: 'MB', iec: true })).toBe(
+      '976.563MiB',
+    ) // 1024MB = 976.563MiB
+    expect(formatStorageSize(1024, { from: 'MB', iec: true, to: 'kB' })).toBe(
+      '1024000kB',
+    ) // 指定了to后 iec配置失效
+    expect(formatStorageSize(1024, { from: 'MB', to: 'kB' })).toBe('1024000kB') // 指定了to后 iec配置失效
+    expect(formatStorageSize(1024, { from: 'MB', to: 'KiB' })).toBe(
+      '1000000KiB',
+    ) // MB => KiB
+    expect(formatStorageSize(1024, { from: 'MiB', to: 'GiB' })).toBe('1GiB') // MB => KiB
+    expect(formatStorageSize(1024, { from: 'MiB', to: 'GB' })).toBe('1.074GB') // MB => KiB
+    expect(
+      formatStorageSize(1024, { from: 'MiB', to: 'GB', limitDecimals: 2 }),
+    ).toBe('1.07GB') // MB => KiB
   })
 })

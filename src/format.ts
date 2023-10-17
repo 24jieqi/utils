@@ -144,3 +144,102 @@ export const abbrNumberFormat = (
     },
   }
 }
+
+type StorageUnit = 'B' | 'kB' | 'MB' | 'GB' | 'TB' | 'PB' | 'EB' | 'ZB' | 'YB'
+type StorageUnitIEC =
+  | 'B'
+  | 'KiB'
+  | 'MiB'
+  | 'GiB'
+  | 'TiB'
+  | 'PiB'
+  | 'EiB'
+  | 'ZiB'
+  | 'YiB'
+const storageUnit: StorageUnit[] = [
+  'B',
+  'kB',
+  'MB',
+  'GB',
+  'TB',
+  'PB',
+  'EB',
+  'ZB',
+  'YB',
+]
+const storageUnitIEC: StorageUnitIEC[] = [
+  'B',
+  'KiB',
+  'MiB',
+  'GiB',
+  'TiB',
+  'PiB',
+  'EiB',
+  'ZiB',
+  'YiB',
+]
+interface FormatBytesConfig {
+  /**
+   * 是否使用IEC单位，默认为`false`，如果指定了`to`则不生效
+   */
+  iec?: boolean
+  /**
+   * 当前传入val的单位，默认为`B`
+   */
+  from?: StorageUnit | StorageUnitIEC
+  /**
+   * 需要格式化成的单位，如果不指定，则默认格式化为最近的单位
+   */
+  to?: StorageUnit | StorageUnitIEC
+  /**
+   * 保留的小数位，默认为`3`
+   */
+  limitDecimals?: number
+}
+
+function toByte(val: number, unit: StorageUnit | StorageUnitIEC) {
+  const isIecUnit = storageUnitIEC.includes(unit as StorageUnitIEC)
+  const exponent = isIecUnit
+    ? storageUnitIEC.indexOf(unit as StorageUnitIEC)
+    : storageUnit.indexOf(unit as StorageUnit)
+  const ratio = isIecUnit ? 2 ** 10 : 10 ** 3
+  return unit === 'B' ? val : val * ratio ** exponent
+}
+
+/**
+ * 存储大小格式化
+ * @param val 待格式化的大小
+ * @param config 格式化配置
+ * @returns
+ */
+export function formatStorageSize(val: number, config?: FormatBytesConfig) {
+  const to = config?.to
+  const useIecUnit = to
+    ? storageUnitIEC.includes(to as StorageUnitIEC)
+    : !!config?.iec
+  const ratio = useIecUnit ? 2 ** 10 : 10 ** 3
+  const currentUnit: (StorageUnit | StorageUnitIEC)[] = useIecUnit
+    ? storageUnitIEC
+    : storageUnit
+  const from = config?.from || 'B'
+  const limitDecimals = config?.limitDecimals || 3
+  // 1. 如果小于0或为NaN 直接返回
+  if (val < 0 || Number.isNaN(val)) {
+    return
+  }
+  // 将待格式化数据转换为字节
+  const numberOfBytes = toByte(val, from)
+  // 计算字节单位所在的index
+  const exponent = Math.min(
+    Math.floor(Math.log(numberOfBytes) / Math.log(ratio)),
+    currentUnit.length - 1,
+  )
+  // 2. 如果前后(转换后的)转换的单位一致，则不需要转换
+  if (from === to || (!to && from === currentUnit[exponent])) {
+    return `${val}${from}`
+  }
+  const diff = to ? currentUnit.indexOf(to) : exponent
+  // 3. 单位格式化
+  const formated = numberOfBytes / ratio ** diff
+  return `${roundWith(formated, limitDecimals)}${currentUnit[diff]}`
+}
