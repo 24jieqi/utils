@@ -1,5 +1,6 @@
 import dayjs from 'dayjs'
 
+import { div } from './decimal'
 import { isDef } from './is'
 
 type FormatMode = 'date' | 'time' | 'date-time'
@@ -161,4 +162,76 @@ export function getRangeDate(
       .toDate(),
     baseDayjs.endOf(reviseUnit).toDate(),
   ]
+}
+
+type TimeType = 'ms' | 's' | 'm' | 'h' | 'd'
+const timeScale = [
+  1,
+  1 * 1000,
+  1 * 1000 * 60,
+  1 * 1000 * 60 * 60,
+  1 * 1000 * 60 * 60 * 24,
+]
+const timeType: TimeType[] = ['ms', 's', 'm', 'h', 'd']
+const timeTypeLocale: string[] = ['毫秒', '秒', '分', '时', '天']
+
+function getLatestTimeType(ms: number): TimeType {
+  for (let i = 0; i < timeScale.length - 1; i += 1) {
+    const temp = ms / timeScale[i]
+    if (Math.trunc(temp) < div(timeScale[i + 1], timeScale[i])!) {
+      return timeType[i]
+    }
+  }
+  return 'd'
+}
+
+export interface FormatDurationConfig {
+  /**
+   * 原时间类型，默认为`ms`
+   */
+  from?: TimeType
+  /**
+   * 目标时间类型，如果未指定，将会将会自动格式化为最近可读的时间
+   */
+  to?: TimeType
+  /**
+   * 本地化输出，默认为`false`
+   */
+  locale?: boolean
+}
+
+/**
+ * 时长格式化
+ * @param val 需要格式化的时长
+ * @param config 配置
+ * @returns
+ */
+export function formatDuration(
+  val: number,
+  config: FormatDurationConfig = { from: 'ms', locale: false },
+) {
+  if (val < 0 || Number.isNaN(val)) {
+    return
+  }
+  const _from = config.from || 'ms'
+  const fromIndex = timeType.indexOf(_from)
+  let timeMs = val * timeScale[fromIndex]
+  const latestTo: TimeType = getLatestTimeType(timeMs)
+  // 不需要格式化的情况
+  if (_from === config?.to || (!config?.to && _from === latestTo)) {
+    return `${val}${timeType[fromIndex]}`
+  }
+  // 需要格式化的目标格式
+  const formatToIndex = timeType.indexOf(config?.to || latestTo)
+  let res = ''
+  let temp = timeMs
+  for (let i = formatToIndex; i >= 0; i -= 1) {
+    const unit = config?.locale ? timeTypeLocale[i] : timeType[i]
+    res += `${Math.trunc(temp / timeScale[i])}${unit}` // 取整
+    temp = temp % timeScale[i] // 留余
+    if (temp === 0) {
+      break
+    }
+  }
+  return res
 }

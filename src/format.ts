@@ -178,7 +178,7 @@ const storageUnitIEC: StorageUnitIEC[] = [
   'ZiB',
   'YiB',
 ]
-interface FormatBytesConfig {
+export interface FormatBytesConfig {
   /**
    * 是否使用IEC单位，默认为`false`，如果指定了`to`则不生效
    */

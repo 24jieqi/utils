@@ -53,7 +53,9 @@ formatRangeDate([targetDate, targetTimestamp], {
 }) // 2023-02-14 To 2023-02-18
 ```
 
-## getRangeDate 获取时间/日期段
+## getRangeDate
+
+> 获取时间/日期段
 
 ```ts
 const targetRangeDate = getRangeDate(3, 'days')
@@ -61,4 +63,19 @@ const targetRangeDate1 = getRangeDate(3, 'months')
 const targetRangeDate2 = getRangeDate(3, 'days', 'day', new Date('2022-12-21'))
 const targetRangeDate3 = getRangeDate(-3, 'days', 'day', new Date('2022-12-21'))
 const targetRangeDate4 = getRangeDate(1, 'month', 'day', new Date('2022-12-21'))
+```
+
+## formatDuration
+
+`v1.0.3`
+
+> 时长格式化
+
+```ts
+formatDuration(1000) // 1s
+formatDuration(1001) // 1s1ms
+formatDuration(61, { from: 'm' }) // 1h1m
+formatDuration(61, { from: 'm', locale: true }) // 1时1分
+formatDuration(61, { from: 'd', to: 'ms' }) // 5270400000ms
+formatDuration(61, { from: 'd', to: 'h', locale: true }) // 1464时
 ```

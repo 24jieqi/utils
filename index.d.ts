@@ -126,6 +126,33 @@ declare const abbrNumberFormat: (val: number | string, maximumFractionDigits?: n
     valueOf: () => string;
     toString: () => string;
 };
+declare type StorageUnit = 'B' | 'kB' | 'MB' | 'GB' | 'TB' | 'PB' | 'EB' | 'ZB' | 'YB';
+declare type StorageUnitIEC = 'B' | 'KiB' | 'MiB' | 'GiB' | 'TiB' | 'PiB' | 'EiB' | 'ZiB' | 'YiB';
+interface FormatBytesConfig {
+    /**
+     * 是否使用IEC单位，默认为`false`，如果指定了`to`则不生效
+     */
+    iec?: boolean;
+    /**
+     * 当前传入val的单位，默认为`B`
+     */
+    from?: StorageUnit | StorageUnitIEC;
+    /**
+     * 需要格式化成的单位，如果不指定，则默认格式化为最近的单位
+     */
+    to?: StorageUnit | StorageUnitIEC;
+    /**
+     * 保留的小数位，默认为`3`
+     */
+    limitDecimals?: number;
+}
+/**
+ * 存储大小格式化
+ * @param val 待格式化的大小
+ * @param config 格式化配置
+ * @returns
+ */
+declare function formatStorageSize(val: number, config?: FormatBytesConfig): string | undefined;
 
 /**
  * 是否是某种类型
@@ -661,5 +688,27 @@ declare function formatRangeDate(rangeDateList: [RangeDate, RangeDate], option?:
  * @param base 基准日期 默认为 dayjs()
  */
 declare function getRangeDate(range: number, unit: dayjs.ManipulateType, reviseUnit?: dayjs.ManipulateType, base?: TimestampOrDate | dayjs.Dayjs): [Date, Date];
+declare type TimeType = 'ms' | 's' | 'm' | 'h' | 'd';
+interface FormatDurationConfig {
+    /**
+     * 原时间类型，默认为`ms`
+     */
+    from?: TimeType;
+    /**
+     * 目标时间类型，如果未指定，将会将会自动格式化为最近可读的时间
+     */
+    to?: TimeType;
+    /**
+     * 本地化输出，默认为`false`
+     */
+    locale?: boolean;
+}
+/**
+ * 时长格式化
+ * @param val 需要格式化的时长
+ * @param config 配置
+ * @returns
+ */
+declare function formatDuration(val: number, config?: FormatDurationConfig): string | undefined;
 
-export { abbrNumberFormat, add, ceilWith, div, ensurePrefix, ensureSuffix, execute, floorWith, formatDate, formatRangeDate, getRangeDate, isArray, isDef, isFunction, isLicensePlateNumber, isMobile, isNullish, isObject, isPromise, isType, minus, mul, plus, randomStr, roundWith, slash, sub, template, times, toDecimalMark };
+export { FormatBytesConfig, FormatDurationConfig, abbrNumberFormat, add, ceilWith, div, ensurePrefix, ensureSuffix, execute, floorWith, formatDate, formatDuration, formatRangeDate, formatStorageSize, getRangeDate, isArray, isDef, isFunction, isLicensePlateNumber, isMobile, isNullish, isObject, isPromise, isType, minus, mul, plus, randomStr, roundWith, slash, sub, template, times, toDecimalMark };

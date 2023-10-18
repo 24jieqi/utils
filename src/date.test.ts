@@ -1,7 +1,12 @@
 import dayjs from 'dayjs'
 import { describe, expect, it } from 'vitest'
 
-import { formatDate, formatRangeDate, getRangeDate } from './date'
+import {
+  formatDate,
+  formatDuration,
+  formatRangeDate,
+  getRangeDate,
+} from './date'
 
 describe('Date', () => {
   it('should formatDate correct', () => {
@@ -94,5 +99,24 @@ describe('Date', () => {
       dayjs('2022-02-13').startOf('day').toDate(),
       dayjs('2022-02-14').endOf('day').toDate(),
     ])
+  })
+  it('should formatDuration correct', () => {
+    expect(formatDuration(-1)).toBeUndefined()
+    expect(formatDuration(NaN)).toBeUndefined()
+    expect(formatDuration(1000)).toBe('1s')
+    expect(formatDuration(1001)).toBe('1s1ms')
+    expect(formatDuration(61, { from: 'm' })).toBe('1h1m')
+    expect(formatDuration(61, { from: 'm', locale: true })).toBe('1时1分')
+    expect(formatDuration(61, { from: 'h' })).toBe('2d13h')
+    expect(formatDuration(61, { from: 'h', locale: true })).toBe('2天13时')
+    expect(formatDuration(61, { from: 'd' })).toBe('61d')
+    expect(formatDuration(61 * 1000, { to: 's' })).toBe('61s')
+    expect(formatDuration(61, { from: 'd', to: 'ms' })).toBe('5270400000ms')
+    expect(formatDuration(61, { from: 'd', to: 's' })).toBe('5270400s')
+    expect(formatDuration(61, { from: 'd', to: 'm' })).toBe('87840m')
+    expect(formatDuration(61, { from: 'd', to: 'h' })).toBe('1464h')
+    expect(formatDuration(61, { from: 'd', to: 'h', locale: true })).toBe(
+      '1464时',
+    )
   })
 })

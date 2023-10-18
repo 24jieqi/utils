@@ -61,3 +61,21 @@ abbrNumberFormat(12111312331.33123, 2).abbrStr // 亿
 abbrNumberFormat(12111312331.33123, 2) // 121.11亿
 abbrNumberFormat(12312331.33123, 2, false) // 1231.23万
 ```
+
+## formatStorageSize
+
+`v1.0.3`
+
+> 存储大小格式化
+
+```ts
+import { abbrNumberFormat } from '@fruits-chain/utils'
+
+formatStorageSize(1000) // 1kB
+formatStorageSize(1024, { iec: true }) // 1KiB
+formatStorageSize(450) // 450B
+formatStorageSize(1000, { iec: true }) //1000B
+formatStorageSize(1024 ** 2) // 1.049MB
+formatStorageSize(1024 ** 2, { iec: true }) // 1MiB
+formatStorageSize(1024, { from: 'MB' }) // 1.024GB
+```
