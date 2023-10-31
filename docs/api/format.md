@@ -64,7 +64,8 @@ abbrNumberFormat(12312331.33123, 2, false) // 1231.23万
 
 ## formatStorageSize
 
-`v1.0.3`
+新增于`v1.0.3`
+`v1.0.4`增加`convertStorageSize`单独返回数值和单位
 
 > 存储大小格式化
 

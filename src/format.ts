@@ -207,12 +207,12 @@ function toByte(val: number, unit: StorageUnit | StorageUnitIEC) {
 }
 
 /**
- * 存储大小格式化
+ * 存储大小转换
  * @param val 待格式化的大小
  * @param config 格式化配置
  * @returns
  */
-export function formatStorageSize(val: number, config?: FormatBytesConfig) {
+export function convertStorageSize(val: number, config?: FormatBytesConfig) {
   const to = config?.to
   const useIecUnit = to
     ? storageUnitIEC.includes(to as StorageUnitIEC)
@@ -236,10 +236,30 @@ export function formatStorageSize(val: number, config?: FormatBytesConfig) {
   )
   // 2. 如果前后(转换后的)转换的单位一致，则不需要转换
   if (from === to || (!to && from === currentUnit[exponent])) {
-    return `${val}${from}`
+    return {
+      value: val,
+      unit: from,
+    }
   }
   const diff = to ? currentUnit.indexOf(to) : exponent
   // 3. 单位格式化
   const formated = numberOfBytes / ratio ** diff
-  return `${roundWith(formated, limitDecimals)}${currentUnit[diff]}`
+  return {
+    value: roundWith(formated, limitDecimals),
+    unit: currentUnit[diff],
+  }
+}
+
+/**
+ * 存储大小格式化
+ * @param val 待格式化的大小
+ * @param config 格式化配置
+ * @returns
+ */
+export function formatStorageSize(val: number, config?: FormatBytesConfig) {
+  const result = convertStorageSize(val, config)
+  if (!result) {
+    return
+  }
+  return `${result.value}${result.unit}`
 }

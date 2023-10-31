@@ -147,6 +147,16 @@ interface FormatBytesConfig {
     limitDecimals?: number;
 }
 /**
+ * 存储大小转换
+ * @param val 待格式化的大小
+ * @param config 格式化配置
+ * @returns
+ */
+declare function convertStorageSize(val: number, config?: FormatBytesConfig): {
+    value: number | undefined;
+    unit: "B" | "kB" | "MB" | "GB" | "TB" | "PB" | "EB" | "ZB" | "YB" | "KiB" | "MiB" | "GiB" | "TiB" | "PiB" | "EiB" | "ZiB" | "YiB";
+} | undefined;
+/**
  * 存储大小格式化
  * @param val 待格式化的大小
  * @param config 格式化配置
@@ -711,4 +721,4 @@ interface FormatDurationConfig {
  */
 declare function formatDuration(val: number, config?: FormatDurationConfig): string | undefined;
 
-export { FormatBytesConfig, FormatDurationConfig, abbrNumberFormat, add, ceilWith, div, ensurePrefix, ensureSuffix, execute, floorWith, formatDate, formatDuration, formatRangeDate, formatStorageSize, getRangeDate, isArray, isDef, isFunction, isLicensePlateNumber, isMobile, isNullish, isObject, isPromise, isType, minus, mul, plus, randomStr, roundWith, slash, sub, template, times, toDecimalMark };
+export { FormatBytesConfig, FormatDurationConfig, abbrNumberFormat, add, ceilWith, convertStorageSize, div, ensurePrefix, ensureSuffix, execute, floorWith, formatDate, formatDuration, formatRangeDate, formatStorageSize, getRangeDate, isArray, isDef, isFunction, isLicensePlateNumber, isMobile, isNullish, isObject, isPromise, isType, minus, mul, plus, randomStr, roundWith, slash, sub, template, times, toDecimalMark };
