@@ -103,6 +103,9 @@ describe('Date', () => {
   it('should formatDuration correct', () => {
     expect(formatDuration(-1)).toBeUndefined()
     expect(formatDuration(NaN)).toBeUndefined()
+    expect(formatDuration(0)).toBe('0ms')
+    expect(formatDuration(0, { to: 'd' })).toBe('0d')
+    expect(formatDuration(0, { from: 'm', to: 'd', locale: true })).toBe('0天')
     expect(formatDuration(1000)).toBe('1s')
     expect(formatDuration(1001)).toBe('1s1ms')
     expect(formatDuration(61, { from: 'm' })).toBe('1h1m')

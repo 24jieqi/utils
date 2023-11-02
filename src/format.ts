@@ -227,6 +227,12 @@ export function convertStorageSize(val: number, config?: FormatBytesConfig) {
   if (val < 0 || Number.isNaN(val)) {
     return
   }
+  if (val === 0) {
+    return {
+      value: val,
+      unit: to || from,
+    }
+  }
   // 将待格式化数据转换为字节
   const numberOfBytes = toByte(val, from)
   // 计算字节单位所在的index

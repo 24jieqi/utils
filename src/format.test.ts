@@ -52,6 +52,9 @@ describe('Format', () => {
     expect(abbrNumberFormat('', 2, false).toString()).toEqual('')
   })
   it('formatStorageSize function correct', () => {
+    expect(formatStorageSize(0, { iec: true })).toBe('0B')
+    expect(formatStorageSize(0, { iec: true, to: 'GB' })).toBe('0GB')
+    expect(formatStorageSize(1, { to: 'GB' })).toBe('0GB')
     expect(formatStorageSize(-10)).toBeUndefined()
     expect(formatStorageSize(NaN)).toBeUndefined()
     expect(formatStorageSize(1000)).toBe('1kB')
