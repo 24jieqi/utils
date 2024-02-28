@@ -219,7 +219,10 @@ export function formatDuration(
   const latestTo: TimeType = getLatestTimeType(timeMs)
   // 不需要格式化的情况
   if (_from === config?.to || (!config?.to && _from === latestTo)) {
-    return `${val}${timeType[fromIndex]}`
+    const unit = config?.locale
+      ? timeTypeLocale[fromIndex]
+      : timeType[fromIndex]
+    return `${val}${unit}`
   }
   // 需要格式化的目标格式
   const formatToIndex = timeType.indexOf(config?.to || latestTo)

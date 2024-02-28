@@ -121,5 +121,7 @@ describe('Date', () => {
     expect(formatDuration(61, { from: 'd', to: 'h', locale: true })).toBe(
       '1464时',
     )
+    expect(formatDuration(975, { locale: true })).toBe('975毫秒')
+    expect(formatDuration(975)).toBe('975ms')
   })
 })
