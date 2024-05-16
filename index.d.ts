@@ -170,7 +170,7 @@ declare function formatStorageSize(val: number, config?: FormatBytesConfig): str
  * @param t
  * @returns
  */
-declare const isType: (t: 'Array' | 'Object' | 'Function' | 'String' | 'Number' | 'Null' | 'Undefined' | 'Map' | 'Set' | 'RegExp') => (v: any) => boolean;
+declare const isType: (t: 'Array' | 'Object' | 'Function' | 'AsyncFunction' | 'String' | 'Number' | 'Null' | 'Undefined' | 'Map' | 'Set' | 'RegExp') => (v: any) => boolean;
 /**
  * 判断是否定义(null、undefined会被识别为未定义)
  * @param val
