@@ -34,7 +34,7 @@ export default [
         format: 'cjs',
       },
     ],
-    external: [],
+    external: ['decimal.js-light', 'dayjs'],
     plugins,
   })),
   ...entries.map(input => ({
@@ -43,7 +43,7 @@ export default [
       file: input.replace('src/', '').replace('.ts', '.d.ts'),
       format: 'esm',
     },
-    external: [],
+    external: ['decimal.js-light', 'dayjs'],
     plugins: [dts({ respectExternal: true })],
   })),
 ]
