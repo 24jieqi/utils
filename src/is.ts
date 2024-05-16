@@ -9,6 +9,7 @@ export const isType =
       | 'Array'
       | 'Object'
       | 'Function'
+      | 'AsyncFunction'
       | 'String'
       | 'Number'
       | 'Null'
@@ -47,7 +48,8 @@ export const isObject = <T>(v: T): v is T => isType('Object')(v)
  * @param v
  * @returns
  */
-export const isFunction = (v: any): v is Function => isType('Function')(v)
+export const isFunction = (v: any): v is Function =>
+  isType('Function')(v) || isType('AsyncFunction')(v)
 
 /**
  * 是否是Promise（鸭子类型判断）

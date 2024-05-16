@@ -26,7 +26,11 @@ describe('is', () => {
     expect(isObject({})).toEqual(true)
     expect(isObject('{name: "limoer"}')).toEqual(false)
     const noop = () => {}
+    async function a() {
+      return 1
+    }
     expect(isFunction(noop)).toEqual(true)
+    expect(isFunction(a)).toEqual(true)
     const promise = new Promise(() => {})
     expect(isPromise(promise)).toEqual(true)
     const func = () => {}
