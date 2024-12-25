@@ -1,4 +1,5 @@
-import { Decimal } from 'decimal.js-light'
+// eslint-disable-next-line import/no-named-as-default
+import Decimal from 'decimal.js-light'
 
 import type { FormulaNode } from './math'
 import { BasicOperatorTypeEnum, parseFormula } from './math'
