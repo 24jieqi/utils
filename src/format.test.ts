@@ -1,12 +1,12 @@
-import { it, expect, describe } from 'vitest'
+import { describe, expect, it } from 'vitest'
 
 import {
+  abbrNumberFormat,
   ceilWith,
   floorWith,
+  formatStorageSize,
   roundWith,
   toDecimalMark,
-  abbrNumberFormat,
-  formatStorageSize,
 } from './format'
 
 describe('Format', () => {

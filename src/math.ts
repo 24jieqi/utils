@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-member-accessibility */
-/* eslint-disable @typescript-eslint/member-ordering */
-/* eslint-disable max-params */
 export enum BasicOperatorTypeEnum {
   ADD = '+',
   SUB = '-',
@@ -53,7 +50,7 @@ class FormulaParser {
     let parenthesesDep = 0 // 记录小括号深度
     let firstTimeOrDivideOperator = null // 记录遇到的第一个 * / 运算符
     let firstTimeOrDivideOperatorIdx = null // 记录遇到的第一个 * / 运算符的位置
-    let [l, r] = this.removeParentheses(
+    const [l, r] = this.removeParentheses(
       this.removeBlank(expression, left, right),
     )
     for (let i = r; i >= l; i--) {

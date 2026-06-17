@@ -7,7 +7,7 @@ import { add, div, mul, sub } from './decimal'
  * @returns
  */
 function withinErrorMargin(left: number, right: number) {
-  return Math.abs(sub(left, right)!) < Math.pow(0.1, 5) // 最多4位小数支持
+  return Math.abs(sub(left, right)!) < 0.1 ** 5 // 最多4位小数支持
 }
 
 function isDef(one: any) {
@@ -49,7 +49,7 @@ export function floorWith(num: number, fractionDigits = 0) {
   if (!isDef(num)) {
     return
   }
-  const m = Math.pow(10, fractionDigits)
+  const m = 10 ** fractionDigits
   return div(Math.floor(mul(num, m)!), m)
 }
 
@@ -63,7 +63,7 @@ export function roundWith(num: number, fractionDigits = 0) {
   if (!isDef(num)) {
     return
   }
-  const m = Math.pow(10, fractionDigits)
+  const m = 10 ** fractionDigits
   return div(Math.round(mul(num, m)!), m)
 }
 
@@ -87,14 +87,14 @@ export function toDecimalMark(val: number, limitDecimals?: number) {
   const int = arr[0].split('')
   const fraction = arr[1] || ''
   let r = ''
-  int.reverse().forEach(function (v, i) {
+  int.reverse().forEach((v, i) => {
     if (i !== 0 && i % 3 === 0) {
-      r = v + ',' + r
+      r = `${v},${r}`
     } else {
       r = v + r
     }
   })
-  return (isNegative ? '-' : '') + r + (fraction ? '.' + fraction : '')
+  return (isNegative ? '-' : '') + r + (fraction ? `.${fraction}` : '')
 }
 
 /**

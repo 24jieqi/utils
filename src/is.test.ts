@@ -1,15 +1,15 @@
-import { expect, it, describe } from 'vitest'
+import { describe, expect, it } from 'vitest'
 
 import {
   isArray,
   isDef,
-  isType,
-  isObject,
   isFunction,
-  isPromise,
-  isMobile,
   isLicensePlateNumber,
+  isMobile,
   isNullish,
+  isObject,
+  isPromise,
+  isType,
 } from './is'
 
 describe('is', () => {
@@ -34,6 +34,7 @@ describe('is', () => {
     const promise = new Promise(() => {})
     expect(isPromise(promise)).toEqual(true)
     const func = () => {}
+    // biome-ignore lint/suspicious/noThenProperty: testing isPromise detection
     func.then = () => {}
     func.catch = () => {}
     expect(isPromise(func)).toEqual(true)

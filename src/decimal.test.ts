@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { plus, add, div, sub, minus, mul, execute, times } from './decimal'
+import { add, div, execute, minus, mul, plus, sub, times } from './decimal'
 
 describe('Decimal', () => {
   it('plus function correct', () => {

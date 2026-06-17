@@ -34,7 +34,9 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "nr build --watch",
-    "lint": "eslint .",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "format": "biome format --write .",
     "prepublishOnly": "npm run build",
     "release": "bumpp --commit --push --tag && npm publish",
     "typecheck": "tsc --noEmit",
@@ -43,7 +45,7 @@
     "doc": "docsify serve ./docs"
   },
   "devDependencies": {
-    "@fruits-chain/eslint-config-preset": "^0.2.1",
+    "@biomejs/biome": "^2.5.0",
     "@rollup/plugin-alias": "^3.1.9",
     "@rollup/plugin-commonjs": "^22.0.0",
     "@rollup/plugin-json": "^4.1.0",
@@ -53,7 +55,6 @@
     "bumpp": "^7.1.1",
     "c8": "^7.12.0",
     "dayjs": "^1.11.7",
-    "eslint": "^8.15.0",
     "p-limit": "^4.0.0",
     "rollup": "^2.72.1",
     "rollup-plugin-dts": "^4.2.1",

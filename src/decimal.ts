@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-named-as-default
 import Decimal from 'decimal.js-light'
 
 import type { FormulaNode } from './math'
@@ -40,7 +39,7 @@ export function execute(expression: string) {
  * @returns
  */
 export function plus(...params: number[]) {
-  if (!params || !params.length) {
+  if (!params?.length) {
     return
   }
   let result = new Decimal(0)
@@ -61,7 +60,7 @@ export const add = plus
  * @returns
  */
 export function sub(...params: number[]) {
-  if (!params || !params.length) {
+  if (!params?.length) {
     return
   }
   let result = new Decimal(params[0])
@@ -82,7 +81,7 @@ export const minus = sub
  * @returns
  */
 export function mul(...params: number[]) {
-  if (!params || !params.length) {
+  if (!params?.length) {
     return
   }
   let result = new Decimal(1)
@@ -103,7 +102,7 @@ export const times = mul
  * @returns
  */
 export function div(...params: number[]) {
-  if (!params || !params.length) {
+  if (!params?.length) {
     return
   }
   let result = new Decimal(params[0])

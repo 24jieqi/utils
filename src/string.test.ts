@@ -1,11 +1,11 @@
 import { expect, it } from 'vitest'
 
 import {
-  template,
-  slash,
   ensurePrefix,
   ensureSuffix,
   randomStr,
+  slash,
+  template,
 } from './string'
 
 it('template', () => {

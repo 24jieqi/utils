@@ -132,7 +132,6 @@ export function formatRangeDate(
  * @param reviseUnit 修正日期类型（及按怎样的日期类型展示） 默认为unit
  * @param base 基准日期 默认为 dayjs()
  */
-// eslint-disable-next-line max-params
 export function getRangeDate(
   range: number,
   unit: dayjs.ManipulateType,
@@ -215,7 +214,7 @@ export function formatDuration(
   }
   const _from = config.from || 'ms'
   const fromIndex = timeType.indexOf(_from)
-  let timeMs = val * timeScale[fromIndex]
+  const timeMs = val * timeScale[fromIndex]
   const latestTo: TimeType = getLatestTimeType(timeMs)
   // 不需要格式化的情况
   if (_from === config?.to || (!config?.to && _from === latestTo)) {
